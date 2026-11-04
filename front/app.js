@@ -41,3 +41,16 @@ function desenhar(lista) {
 }
 
 desenhar(produtos);
+
+// Fase 3-2: filtrar enquanto a pessoa digita (evento "input" dispara a cada tecla).
+// filter() devolve uma lista NOVA: "produtos" continua intacta, então apagar a
+// busca traz tudo de volta. Repare que desenhar() não mudou.
+const busca = document.querySelector("#busca");
+
+function filtrar() {
+  const termo = busca.value.trim().toLowerCase();
+  const achados = produtos.filter((p) => p.nome.toLowerCase().includes(termo));
+  desenhar(achados);
+}
+
+busca.addEventListener("input", filtrar);

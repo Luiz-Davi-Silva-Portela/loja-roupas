@@ -28,6 +28,12 @@ header {
   color: #fff;
 }
 header p { font-size: 1.3rem; font-weight: 700; margin: 0; }
+header input[type="search"] {
+  font-size: 1rem;
+  padding: 8px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
 nav { margin-left: auto; display: flex; gap: 20px; }
 nav a { color: #fff; }
 
@@ -83,4 +89,14 @@ footer p { margin: 0; }
   section { grid-template-columns: 1fr; }
   header { flex-wrap: wrap; }
   nav { margin-left: 0; width: 100%; }
+}
+
+/* rótulo que só o leitor de tela enxerga (o placeholder não substitui o label) */
+.so-leitor-de-tela {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
