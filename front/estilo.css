@@ -1,0 +1,63 @@
+/* Etapa 17: o visual da loja (Aula 11) */
+
+:root {
+  --verde: #1f6f6b;
+  --tinta: #1b1c1f;
+  --fundo: #f3efe6;
+  --cartao: #fffdf8;
+  --borda: #e2dccd;
+}
+
+* { box-sizing: border-box; }       /* largura inclui padding e borda */
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: var(--tinta);
+  background: var(--fundo);
+  line-height: 1.5;
+}
+
+/* cabeçalho: logo, nome e menu numa linha só (Flexbox) */
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  background: var(--verde);
+  color: #fff;
+}
+header p { font-size: 1.3rem; font-weight: 700; margin: 0; }
+nav { margin-left: auto; display: flex; gap: 20px; }
+nav a { color: #fff; }
+
+main { max-width: 1000px; margin: 0 auto; padding: 24px; }
+
+/* a vitrine: cartões em grade (Grid) */
+section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+section h2 { grid-column: 1 / -1; margin: 0; }
+
+article {
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  padding: 16px;
+}
+article h3 { margin-top: 0; }
+
+button {
+  background: var(--verde);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+footer { padding: 24px; text-align: center; color: #5b5d63; }
+footer p { margin: 0; }
