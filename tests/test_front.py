@@ -95,3 +95,18 @@ def test_script_existe_e_fica_no_fim_do_body(pagina):
             assert (FRONT / atributos["src"]).exists()
             # o script roda depois de o navegador criar os elementos (ou usa defer)
             assert "defer" in atributos or posicao > nomes.index("footer")
+
+
+def test_ids_usados_pelo_javascript_existem_nas_paginas():
+    """Evita o clássico 'null' do querySelector: o id escrito no app.js existe no HTML."""
+    import re
+
+    ids_no_js = set(re.findall(r'querySelector\("#([\w-]+)"\)', (FRONT / "app.js").read_text(encoding="utf-8")))
+    ids_nas_paginas = {a["id"] for p in PAGINAS for _, a in ler(p) if "id" in a}
+    assert ids_no_js, "o app.js não usa nenhum id?"
+    assert ids_no_js <= ids_nas_paginas, f"ids sem elemento: {ids_no_js - ids_nas_paginas}"
+
+
+def test_cadastro_tem_aviso_e_vitrine_para_o_javascript():
+    ids = {a["id"] for _, a in ler(FRONT / "cadastro.html") if "id" in a}
+    assert {"form-produto", "aviso", "vitrine", "busca"} <= ids

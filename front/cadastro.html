@@ -10,6 +10,8 @@
   <header>
     <img src="img/logo.svg" alt="Logotipo da Loja de Roupas: uma camiseta" width="48" height="48">
     <p>Loja de Roupas</p>
+    <label for="busca" class="so-leitor-de-tela">Buscar produto</label>
+    <input id="busca" type="search" placeholder="Buscar produto">
     <nav aria-label="Principal">
       <a href="index.html">Vitrine</a>
       <a href="cadastro.html">Cadastrar produto</a>
@@ -19,7 +21,7 @@
   <main>
     <h1>Cadastrar produto</h1>
 
-    <form class="formulario">
+    <form id="form-produto" class="formulario" novalidate>
       <label for="tipo">Tipo</label>
       <select id="tipo" name="tipo">
         <option value="Produto">Produto</option>
@@ -41,10 +43,16 @@
 
       <button type="submit">Cadastrar</button>
     </form>
+    <p id="aviso" role="status"></p>
+
+    <h2 id="titulo-produtos">Prévia da vitrine</h2>
+    <section id="vitrine" aria-labelledby="titulo-produtos"></section>
   </main>
 
   <footer>
     <p>Loja de Roupas · Projeto da Faculdade Senac Pernambuco · ADS 2026.2</p>
   </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>

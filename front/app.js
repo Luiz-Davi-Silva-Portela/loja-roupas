@@ -54,3 +54,35 @@ function filtrar() {
 }
 
 busca.addEventListener("input", filtrar);
+
+// Fase 3-3: o formulário de cadastro (só existe na página cadastro.html).
+// O navegador ajuda (required, min), mas quem decide é o código: o servidor
+// também vai validar quando o POST for ligado à API (Aula 13).
+const form = document.querySelector("#form-produto");
+const aviso = document.querySelector("#aviso");
+
+if (form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault(); // sem isto a página recarrega e nada do resto roda
+
+    const tipo = document.querySelector("#tipo").value;
+    const nome = document.querySelector("#nome").value.trim();
+    const preco = Number(document.querySelector("#preco").value); // .value é sempre texto
+    const tam = document.querySelector("#tamanho").value;
+
+    if (nome === "") {
+      aviso.textContent = "Informe o nome do produto.";
+      return;
+    }
+    if (!(preco > 0)) { // pega vazio, zero, negativo e NaN de uma vez
+      aviso.textContent = "O preço precisa ser maior que zero.";
+      return;
+    }
+
+    produtos.push({ tipo, nome, preco, tam });
+    busca.value = ""; // limpa a busca para o produto novo não ficar escondido
+    desenhar(produtos);
+    form.reset();
+    aviso.textContent = "Produto cadastrado.";
+  });
+}
