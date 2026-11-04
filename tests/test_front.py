@@ -85,3 +85,13 @@ def test_cadastro_tem_os_campos_do_post():
     assert cadastro.exists()
     nomes = {a.get("name") for t, a in ler(cadastro) if t in ("input", "select")}
     assert {"tipo", "nome", "preco", "tamanho"} <= nomes
+
+
+def test_script_existe_e_fica_no_fim_do_body(pagina):
+    itens = ler(pagina)
+    nomes = [t for t, _ in itens]
+    for posicao, (tag, atributos) in enumerate(itens):
+        if tag == "script":
+            assert (FRONT / atributos["src"]).exists()
+            # o script roda depois de o navegador criar os elementos (ou usa defer)
+            assert "defer" in atributos or posicao > nomes.index("footer")
