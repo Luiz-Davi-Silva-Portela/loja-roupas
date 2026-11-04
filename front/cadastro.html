@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastrar produto · Loja de Roupas</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header>
+    <img src="img/logo.svg" alt="Logotipo da Loja de Roupas: uma camiseta" width="48" height="48">
+    <p>Loja de Roupas</p>
+    <nav aria-label="Principal">
+      <a href="index.html">Vitrine</a>
+      <a href="cadastro.html">Cadastrar produto</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Cadastrar produto</h1>
+
+    <form class="formulario">
+      <label for="tipo">Tipo</label>
+      <select id="tipo" name="tipo">
+        <option value="Produto">Produto</option>
+        <option value="Camiseta">Camiseta</option>
+        <option value="Calca">Calça</option>
+      </select>
+
+      <label for="nome">Nome</label>
+      <input id="nome" name="nome" type="text" required>
+
+      <label for="preco">Preço (R$)</label>
+      <input id="preco" name="preco" type="number" min="0.01" step="0.01" required>
+
+      <label for="tamanho">Tamanho</label>
+      <select id="tamanho" name="tamanho" required>
+        <option>PP</option><option>P</option><option selected>M</option>
+        <option>G</option><option>GG</option>
+      </select>
+
+      <button type="submit">Cadastrar</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>Loja de Roupas · Projeto da Faculdade Senac Pernambuco · ADS 2026.2</p>
+  </footer>
+</body>
+</html>

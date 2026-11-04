@@ -48,3 +48,40 @@ def test_toda_imagem_tem_alt(pagina):
     for tag, atributos in ler(pagina):
         if tag == "img":
             assert "alt" in atributos
+
+
+def test_todo_campo_tem_label(pagina):
+    itens = ler(pagina)
+    rotulos = {a["for"] for t, a in itens if t == "label" and a.get("for")}
+    for tag, atributos in itens:
+        if tag in ("input", "select", "textarea") and atributos.get("type") not in ("hidden", "submit"):
+            assert atributos.get("id") in rotulos, f"campo sem label: {atributos}"
+
+
+def test_titulos_em_ordem(pagina):
+    niveis = [int(t[1]) for t, _ in ler(pagina) if t in ("h1", "h2", "h3", "h4", "h5", "h6")]
+    assert niveis[0] == 1
+    for anterior, atual in zip(niveis, niveis[1:]):
+        assert atual <= anterior + 1, f"o título pulou de h{anterior} para h{atual}"
+
+
+def test_idioma_e_viewport(pagina):
+    itens = ler(pagina)
+    html = next(a for t, a in itens if t == "html")
+    assert html.get("lang") == "pt-BR"
+    metas = [a for t, a in itens if t == "meta"]
+    assert any(m.get("name") == "viewport" for m in metas)
+
+
+def test_estilo_ligado_e_existente(pagina):
+    links = [a for t, a in ler(pagina) if t == "link" and a.get("rel") == "stylesheet"]
+    assert links, "a página não liga nenhum CSS"
+    for link in links:
+        assert (FRONT / link["href"]).exists()
+
+
+def test_cadastro_tem_os_campos_do_post():
+    cadastro = FRONT / "cadastro.html"
+    assert cadastro.exists()
+    nomes = {a.get("name") for t, a in ler(cadastro) if t in ("input", "select")}
+    assert {"tipo", "nome", "preco", "tamanho"} <= nomes
